@@ -1,11 +1,26 @@
 
+import { useEffect, useState } from 'react';
 import '../App.css';
 
 export default function Movie({ movieData }) {
   // console.log(movieData)
+  // const [ppath, setPPath] = useState(movieData.poster_path)
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true)
+
+  }, [movieData.poster_path])
+
   return (
     <div className='movie'>
-      <img className="poster" src={`https://image.tmdb.org/t/p/w500/${movieData.poster_path}`} alt="" srcset="" />
+     
+      {loading ? 
+       <div className='loading'>
+       <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+     </div>
+      : null}
+      <img onLoad={() => setLoading(false)} className="poster" src={`https://image.tmdb.org/t/p/w500/${movieData.poster_path}`} alt="" srcset="" />
 
       <div className='info'>
         <div id='title'>
@@ -31,8 +46,18 @@ export default function Movie({ movieData }) {
         </div>
 
         <div>
+          {movieData.runtime !== 0 ? "Run time: " + movieData.runtime + " Minutes" : null}
+        </div>
+        <div id='rating'>
+          Average ratings: {movieData.vote_average}  (Total votes {movieData.vote_count})
+        </div>
+
+        <div id='votes'>
+
 
         </div>
+
+
 
         <div id='tagline'>
           {movieData.tagline}
@@ -61,15 +86,7 @@ export default function Movie({ movieData }) {
         {movieData.popularity}
       </div> */}
 
-        <div id='rating'>
-          Average ratings:
-          {movieData.vote_average}
-        </div>
 
-        <div id='votes'>
-
-          {movieData.vote_count} ratings
-        </div>
 
         <div id='production'>
           {movieData.production_companies.length > 0 ? movieData.production_companies.map(one => <img className='productionlogo' src={`https://image.tmdb.org/t/p/original${one.logo_path}`} alt={one.name} />) : ""}
