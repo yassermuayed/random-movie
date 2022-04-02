@@ -3,22 +3,37 @@ body {
   padding: 0;
   margin: 0;
   font-family: Helvetica, sans-serif, Arial;
+ 
+  
+  
 }
 
 .controls {
-  background: #ffcd2f !important;
-  height: 40px !important;
+  
+  height: 60px !important;
   position: fixed;
   bottom: 0;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  background: rgb(12, 12, 12);
 }
 
 .controls button {
   padding: 10px;
   border-radius: 4px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.controls button:hover{
+  background-color: rgb(175, 175, 175);
+}
+
+.controls button svg{
+  color: white;
+
 }
 
 .movie {
@@ -34,7 +49,7 @@ body {
   width: 100vw;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.897);
-  position: absolute;
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;

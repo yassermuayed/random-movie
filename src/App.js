@@ -33,7 +33,7 @@ export default function App() {
       
       <Movie movieData={movieData} />
 
-      <button onClick={()=> fetchMovie()} >nnn</button>
+      
       <Controls fm={fetchMovie} />
 
     </div>
