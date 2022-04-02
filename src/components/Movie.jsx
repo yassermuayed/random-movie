@@ -7,94 +7,106 @@ export default function Movie({ movieData }) {
     <div className='movie'>
       <img className="poster" src={`https://image.tmdb.org/t/p/w500/${movieData.poster_path}`} alt="" srcset="" />
 
-      <div>
-        {movieData.title}
-      </div>
+      <div className='info'>
+        <div id='title'>
+          {movieData.title}
+        </div>
 
-      <div>
-        {movieData.english_name}
-      </div>
+        <div>
+          {movieData.english_name}
+        </div>
 
-      <div>
-        original title
-        {movieData.original_title}
-      </div>
+        <div>
 
-      <div>
-        {movieData.original_language}
-      </div>
+          {movieData.original_title === movieData.title ? "" : "Original Title(" + movieData.original_language + "):  " + movieData.original_title}
+        </div>
 
-      <div>
-        {movieData.origin_country}
-      </div>
 
-      <div>
-        {movieData.tagline}
-      </div>
+        <div>
+          {movieData.origin_country}
+        </div>
 
-      <div>
-        {movieData.overview}
-      </div>
+        <div>
+          {movieData.status} {movieData.release_date}
+        </div>
 
-      <div>
-        {movieData.genres.length > 0 ? movieData.genres.map(one => <h1>{one.name}</h1>) :" no geners"}
-      </div>
+        <div>
 
-      <div>
-        {movieData.homepage}
-      </div>
+        </div>
 
-      <div>
+        <div id='tagline'>
+          {movieData.tagline}
+        </div>
+
+        <div id='overview'>
+          {movieData.overview}
+        </div>
+
+        <div id='genres'>
+          {movieData.genres.length > 0 ? movieData.genres.map(one => <div className='genre'>{one.name}</div>) : ""}
+        </div>
+        <div id='languages'>
+          {movieData.spoken_languages.length > 0 ? movieData.spoken_languages.map(one => <div className='lang'>{one.name}</div>) : ""}
+        </div>
+
+        <div id='homepage'>
+          {movieData.homepage !== "" ?
+            <a href={movieData.homepage} target='blank'> Home page</a>
+            : ""}
+        </div>
+
+
+
+        {/* <div>
+        {movieData.popularity}
+      </div> */}
+
+        <div id='rating'>
+          Average ratings:
+          {movieData.vote_average}
+        </div>
+
+        <div id='votes'>
+
+          {movieData.vote_count} ratings
+        </div>
+
+        <div id='production'>
+          {movieData.production_companies.length > 0 ? movieData.production_companies.map(one => <img className='productionlogo' src={`https://image.tmdb.org/t/p/original${one.logo_path}`} alt={one.name} />) : ""}
+        </div>
+
+        <div>
+          {movieData.production_countries.length > 0 ? movieData.production_countries.map(one => <div>Origin: {one.name}</div>) : ""}
+        </div>
+
+
+
+        <div>
+          Budget:
+          {movieData.budget / 1000000} M$
+        </div>
+
+        <div>
+          Revenue:
+          {movieData.revenue / 1000000} M$
+        </div>
+
+        <div>
+          Run time:
+          {movieData.runtime} Minutes
+        </div>
+
+
+
+        {/* <div>
+          {movieData.video ? "video available" : "No video available"}
+        </div> */}
+      </div>
+      <div id='imbdID'>
+        imbd ID:
         {movieData.imdb_id}
       </div>
-
-      <div>
-        {movieData.popularity}
-      </div>
-
-      <div>
-        {movieData.vote_average}
-      </div>
-
-      <div>
-        {movieData.vote_count}
-      </div>
-
-      <div>
-        {movieData.production_companies.length > 0 ? movieData.production_companies.map(one => <h1>{one.name}</h1>) : "No production companies"}
-      </div>
-
-      <div>
-        {movieData.production_countries.length > 0 ? movieData.production_countries.map(one => <h1>{one.name}</h1>) : "No production countireies"}
-      </div>
-
-      <div>
-        {movieData.status}
-      </div>
-
-      <div>
-        {movieData.release_date}
-      </div>
-
-      <div>
-        {movieData.budget}
-      </div>
-
-      <div>
-        {movieData.revenue}
-      </div>
-
-      <div>
-        {movieData.runtime}
-      </div>
-
-      <div>
-      {movieData.spoken_languages.length > 0 ? movieData.spoken_languages.map(one => <h1>{one.name}</h1>) : "No production countireies"}
-      </div>
-
-      <div>
-        {movieData.video ? "video available" : "No video available"}
-      </div>
+      <h1>''</h1>
 
     </div>
   )
