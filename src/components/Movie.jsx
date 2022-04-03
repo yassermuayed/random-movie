@@ -14,12 +14,12 @@ export default function Movie({ movieData }) {
 
   return (
     <div className='movie'>
-     
-      {loading ? 
-       <div className='loading'>
-       <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
-     </div>
-      : null}
+
+      {loading ?
+        <div className='loading'>
+          <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+        </div>
+        : null}
       <img onLoad={() => setLoading(false)} className="poster" src={`https://image.tmdb.org/t/p/w500/${movieData.poster_path}`} alt="" srcset="" />
 
       <div className='info'>
@@ -46,15 +46,14 @@ export default function Movie({ movieData }) {
         </div>
 
         <div>
-          {movieData.runtime !== 0 ? "Run time: " + movieData.runtime + " Minutes" : null}
+          {movieData.runtime !== 0 ? "Run time " + movieData.runtime + " Minutes" : null}
         </div>
         <div id='rating'>
-          Average ratings: {movieData.vote_average}  (Total votes {movieData.vote_count})
+          Ratings {movieData.vote_average}  ({movieData.vote_count} votes)
         </div>
 
-        <div id='votes'>
-
-
+        <div id='languages'>
+          {movieData.spoken_languages.length > 0 ? "Language " + movieData.spoken_languages.map(one => one.name) : null}
         </div>
 
 
@@ -68,14 +67,12 @@ export default function Movie({ movieData }) {
         </div>
 
         <div id='genres'>
-          {movieData.genres.length > 0 ? movieData.genres.map(one => <div className='genre'>{one.name}</div>) : ""}
-        </div>
-        <div id='languages'>
-          {movieData.spoken_languages.length > 0 ? movieData.spoken_languages.map(one => <div className='lang'>{one.name}</div>) : ""}
+          {movieData.genres.length > 0 ? movieData.genres.map(one => <div className='genre'>{one.name}</div>) : null}
         </div>
 
+
         <div id='homepage'>
-          {movieData.homepage !== "" ?
+          {movieData.homepage && movieData.homepage !== "" ?
             <a href={movieData.homepage} target='blank'> Home page</a>
             : ""}
         </div>
@@ -86,32 +83,33 @@ export default function Movie({ movieData }) {
         {movieData.popularity}
       </div> */}
 
+        <div className='last-section'>
+
+          <div id='production'>
+            {movieData.production_companies.length > 0 ? movieData.production_companies.map(one => <img className='productionlogo' src={`https://image.tmdb.org/t/p/original${one.logo_path}`} alt={one.name} />) : ""}
+          </div>
+
+          
 
 
-        <div id='production'>
-          {movieData.production_companies.length > 0 ? movieData.production_companies.map(one => <img className='productionlogo' src={`https://image.tmdb.org/t/p/original${one.logo_path}`} alt={one.name} />) : ""}
+          <div className='numbers'>
+          <div>
+            {movieData.production_countries.length > 0 ? movieData.production_countries.map(one => <div>Country of Origin: <br /> {one.name}</div>) : ""}
+          </div>
+            <div>
+              
+              {movieData.budget !== 0 ? "Budget: "+ movieData.budget / 1000000 + " M$" : null} 
+            </div>
+
+            <div>
+              
+              {movieData.revenue !== 0 ? "Revenue:" + movieData.revenue / 1000000 + " M$" : null}
+            </div>
+          </div>
+
         </div>
 
-        <div>
-          {movieData.production_countries.length > 0 ? movieData.production_countries.map(one => <div>Origin: {one.name}</div>) : ""}
-        </div>
-
-
-
-        <div>
-          Budget:
-          {movieData.budget / 1000000} M$
-        </div>
-
-        <div>
-          Revenue:
-          {movieData.revenue / 1000000} M$
-        </div>
-
-        <div>
-          Run time:
-          {movieData.runtime} Minutes
-        </div>
+        <div className='bootommargin'> ________ </div>
 
 
 
@@ -119,11 +117,11 @@ export default function Movie({ movieData }) {
           {movieData.video ? "video available" : "No video available"}
         </div> */}
       </div>
-      <div id='imbdID'>
+      {/* <div id='imbdID'>
         imbd ID:
         {movieData.imdb_id}
-      </div>
-      <h1>''</h1>
+      </div> */}
+
 
     </div>
   )
