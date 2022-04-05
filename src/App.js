@@ -21,7 +21,7 @@ export default function App() {
 
 
   const [movieData, setMovieData] = useState(mm)
-
+  const [showCopyMessage, setShowCopyMessage] = useState(false)
   let navigate = useNavigate()
 
 
@@ -59,8 +59,9 @@ export default function App() {
   function copyToShare() {
     console.log(movieData.id)
     navigator.clipboard.writeText(`https://random-movie-nine.vercel.app/${movieData.id}`)
+    setShowCopyMessage(true)
   }
-  
+
   return (
 
     <div>
@@ -71,6 +72,14 @@ export default function App() {
         <Route path={`:linkId`} element={<Movie movieData={movieData} fm={randomMovie} openLink={openLink} />} />
       </Routes>
 
+      {showCopyMessage ?
+        <div className='copy-to-clip'>
+          link to movie have been coped to clipboard: {`https://random-movie-nine.vercel.app/${movieData.id}`}
+          <button onClick={()=> setShowCopyMessage(false)}>Ok</button>
+        </div>
+        :
+        null
+      }
 
 
 
