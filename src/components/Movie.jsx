@@ -1,9 +1,10 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import '../App.css';
 
-export default function Movie({ movieData }) {
+export default function Movie({ movieData , openLink}) {
   // console.log(movieData)
   // const [ppath, setPPath] = useState(movieData.poster_path)
   const [loading, setLoading] = useState(true);
@@ -13,13 +14,18 @@ export default function Movie({ movieData }) {
 
   }, [movieData.poster_path])
 
+  let params = useParams()
 
+  console.log(params)
 
- 
+  if(params.linkId !== 'movie'){
+    openLink(params.linkId)
+  }
+
 
   return (
     <div className='movie'>
-      
+
       {loading ?
         <div className='loading'>
           <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
@@ -94,20 +100,20 @@ export default function Movie({ movieData }) {
             {movieData.production_companies.length > 0 ? movieData.production_companies.map(one => <img className='productionlogo' src={`https://image.tmdb.org/t/p/original${one.logo_path}`} alt={one.name} />) : ""}
           </div>
 
-          
+
 
 
           <div className='numbers'>
-          <div>
-            {movieData.production_countries.length > 0 ? movieData.production_countries.map(one => <div>Country of Origin: <br /> {one.name}</div>) : ""}
-          </div>
             <div>
-              
-              {movieData.budget !== 0 ? "Budget: "+ movieData.budget / 1000000 + " M$" : null} 
+              {movieData.production_countries.length > 0 ? movieData.production_countries.map(one => <div>Country of Origin: <br /> {one.name}</div>) : ""}
+            </div>
+            <div>
+
+              {movieData.budget !== 0 ? "Budget: " + movieData.budget / 1000000 + " M$" : null}
             </div>
 
             <div>
-              
+
               {movieData.revenue !== 0 ? "Revenue:" + movieData.revenue / 1000000 + " M$" : null}
             </div>
           </div>

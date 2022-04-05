@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 import {
-  BrowserRouter,
   Routes,
   Route,
-  
+  useNavigate,
+  useParams,
+
 } from "react-router-dom";
 
 
@@ -14,34 +15,44 @@ import Controls from './components/Controls';
 import Home from './components/Home';
 import Movie from './components/Movie';
 
-
+// 809676 secret cops
 
 export default function App() {
 
 
   const [movieData, setMovieData] = useState(mm)
 
-  function copyToShare() {
-    console.log(movieData.id)
+  let navigate = useNavigate()
+
+
+  async function openLink(link_id){
+    console.log("shroud open movie by its id", link_id)
+    navigate('/movie')
+    let link_movie = await fetchApi(link_id)
+      console.log('link movie', link_movie)
+      if(link_movie.success !== false){
+        setMovieData(link_movie)
+      }
+      else{
+        navigate('/home')
+      }
+    
   }
 
-  async function fetchMovie() {
-
+  async function randomMovie() {
     const movie_id = Math.ceil(Math.random() * 950000)
+    const newMovie = await fetchApi(movie_id)
 
 
-    const response = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${process.env.REACT_APP_RPG_COLORS}&language=en-US`)
-    var data = await response.json()
-    console.log("New Api Fetch", data.id)
+    if (newMovie.poster_path && !newMovie.adult) {
+      console.log("poster OK", newMovie.id)
+      setMovieData(newMovie)
+      // navigate(`${newMovie.id}`)
 
-
-    if (data.poster_path && !data.adult) {
-      console.log("poster OK", data.id)
-      setMovieData(data)
-
-    } else {
-      console.log("no poster running fetchmovie() agiaen")
-      fetchMovie()
+    }
+    else {
+      console.log("no poster running randomMovie() again", newMovie.id)
+      randomMovie()
     }
 
   }
@@ -50,16 +61,16 @@ export default function App() {
   return (
 
     <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          
-          <Route path={`:linkId`} element={<Movie movieData={movieData} fm={fetchMovie} />} />
-        </Routes>
 
-        {/* <NavBar /> */}
+      <Routes>
+        <Route path='/home' element={<Home />} />
 
-        {/* 
+        <Route path={`:linkId`} element={<Movie movieData={movieData} fm={randomMovie} openLink={openLink} />} />
+      </Routes>
+
+      {/* <NavBar /> */}
+
+      {/* 
       <Home />
 
 
@@ -69,8 +80,8 @@ export default function App() {
 
 
 
-        <Controls fm={fetchMovie} copyToShare={copyToShare} />
-      </BrowserRouter>
+      <Controls fm={randomMovie} />
+
     </div >
 
   )
@@ -155,4 +166,13 @@ const mm = {
   "video": false,
   "vote_average": 8.2,
   "vote_count": 10809
+}
+
+
+
+async function fetchApi(movie_id) {
+  console.log("fetch form API is running")
+  const response = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${process.env.REACT_APP_RPG_COLORS}&language=en-US`)
+  var data = await response.json()
+  return data
 }
