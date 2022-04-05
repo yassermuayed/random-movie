@@ -25,18 +25,18 @@ export default function App() {
   let navigate = useNavigate()
 
 
-  async function openLink(link_id){
+  async function openLink(link_id) {
     console.log("shroud open movie by its id", link_id)
     navigate('/movie')
     let link_movie = await fetchApi(link_id)
-      console.log('link movie', link_movie)
-      if(link_movie.success !== false){
-        setMovieData(link_movie)
-      }
-      else{
-        navigate('/home')
-      }
-    
+    console.log('link movie', link_movie)
+    if (link_movie.success !== false) {
+      setMovieData(link_movie)
+    }
+    else {
+      navigate('/home')
+    }
+
   }
 
   async function randomMovie() {
@@ -47,7 +47,6 @@ export default function App() {
     if (newMovie.poster_path && !newMovie.adult) {
       console.log("poster OK", newMovie.id)
       setMovieData(newMovie)
-      // navigate(`${newMovie.id}`)
 
     }
     else {
@@ -57,7 +56,11 @@ export default function App() {
 
   }
 
-
+  function copyToShare() {
+    console.log(movieData.id)
+    navigator.clipboard.writeText(`https://random-movie-nine.vercel.app/${movieData.id}`)
+  }
+  
   return (
 
     <div>
@@ -68,19 +71,10 @@ export default function App() {
         <Route path={`:linkId`} element={<Movie movieData={movieData} fm={randomMovie} openLink={openLink} />} />
       </Routes>
 
-      {/* <NavBar /> */}
-
-      {/* 
-      <Home />
 
 
 
-      <Movie movieData={movieData} /> */}
-
-
-
-
-      <Controls fm={randomMovie} />
+      <Controls fm={randomMovie} copyToShare={copyToShare} />
 
     </div >
 
