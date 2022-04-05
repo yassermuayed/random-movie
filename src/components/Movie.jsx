@@ -1,20 +1,31 @@
 
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import '../App.css';
 
-export default function Movie({ movieData }) {
+export default function Movie({ movieData , fm }) {
   // console.log(movieData)
   // const [ppath, setPPath] = useState(movieData.poster_path)
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true)
+    if(params.linkId && params.linkId !== movieData.id ){
+      fm(params.linkId) 
+      // 601472
+    }
 
   }, [movieData.poster_path])
 
+  let params = useParams();
+  console.log("params ",params)
+
+
+ 
+
   return (
     <div className='movie'>
-
+      
       {loading ?
         <div className='loading'>
           <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
