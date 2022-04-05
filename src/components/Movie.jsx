@@ -3,22 +3,16 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import '../App.css';
 
-export default function Movie({ movieData , fm }) {
+export default function Movie({ movieData }) {
   // console.log(movieData)
   // const [ppath, setPPath] = useState(movieData.poster_path)
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true)
-    if(params.linkId && params.linkId !== movieData.id ){
-      fm(params.linkId) 
-      // 601472
-    }
 
   }, [movieData.poster_path])
 
-  let params = useParams();
-  console.log("params ",params)
 
 
  

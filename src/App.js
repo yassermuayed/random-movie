@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 
 import {
   BrowserRouter,
   Routes,
   Route,
-  useNavigate,
+  
 } from "react-router-dom";
 
 
@@ -14,25 +14,34 @@ import Controls from './components/Controls';
 import Home from './components/Home';
 import Movie from './components/Movie';
 
+
+
 export default function App() {
 
 
   const [movieData, setMovieData] = useState(mm)
-  
 
-  async function fetchMovie(movie_id) {
-    
-    console.log(movie_id)
+  function copyToShare() {
+    console.log(movieData.id)
+  }
+
+  async function fetchMovie() {
+
+    const movie_id = Math.ceil(Math.random() * 950000)
+
+
     const response = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${process.env.REACT_APP_RPG_COLORS}&language=en-US`)
-    const data = await response.json()
+    var data = await response.json()
+    console.log("New Api Fetch", data.id)
+
+
     if (data.poster_path && !data.adult) {
-      console.log("poster OK" , data.id)
+      console.log("poster OK", data.id)
       setMovieData(data)
-      
+
     } else {
       console.log("no poster running fetchmovie() agiaen")
-      const new_id = Math.ceil(Math.random() * 950000) 
-      fetchMovie(new_id)
+      fetchMovie()
     }
 
   }
@@ -44,13 +53,13 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/movie' element={<Movie movieData={movieData} /> } />
-          <Route path={`:linkId`} element={<Movie movieData={movieData} fm={fetchMovie} /> } />
+          
+          <Route path={`:linkId`} element={<Movie movieData={movieData} fm={fetchMovie} />} />
         </Routes>
-      
-      {/* <NavBar /> */}
 
-      {/* 
+        {/* <NavBar /> */}
+
+        {/* 
       <Home />
 
 
@@ -60,7 +69,7 @@ export default function App() {
 
 
 
-      <Controls fm={fetchMovie} />
+        <Controls fm={fetchMovie} copyToShare={copyToShare} />
       </BrowserRouter>
     </div >
 
