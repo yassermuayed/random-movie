@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import Controls from './components/Controls';
+import Home from './components/Home';
 import Movie from './components/Movie';
 import NavBar from './components/NavBar';
 
@@ -29,8 +30,8 @@ export default function App() {
 
   return (
     <div>
-      <NavBar />
-      
+      {/* <NavBar /> */}
+      <Home />
       <Movie movieData={movieData} />
 
       
