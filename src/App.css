@@ -42,7 +42,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  background: rgba(0, 0, 0, 0.795);
+  background: rgb(0, 0, 0);
   color: white;
   font-size: 0.8rem;
 }

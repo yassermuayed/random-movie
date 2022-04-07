@@ -72,8 +72,17 @@ export default function App() {
 
     // code after the following line will not be executed on mobile.
 
-    navigator.share(`https://random-movie-nine.vercel.app/${movieData.id}`)
-    navigator.clipboard.writeText(`https://random-movie-nine.vercel.app/${movieData.id}`)
+    const url = `https://random-movie-nine.vercel.app/${movieData.id}`;
+    const title = movieData.title
+    
+    navigator.share({
+      title: title,
+      text: 'Check out this movie',
+      url: url,
+    })
+
+    
+    navigator.clipboard.writeText(url)
 
 
 
