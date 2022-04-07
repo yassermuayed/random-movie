@@ -22,8 +22,13 @@ export default function App() {
 
   const [movieData, setMovieData] = useState(mm)
   const [showCopyMessage, setShowCopyMessage] = useState(false)
+  
   let navigate = useNavigate()
 
+
+  useEffect(() => {
+    navigate('/home')
+  }, [])
 
   async function openLink(link_id) {
     console.log("shroud open movie by its id", link_id)
@@ -57,31 +62,45 @@ export default function App() {
   }
 
   function copyToShare() {
-    console.log(movieData.id)
-    navigator.clipboard.writeText(`https://random-movie-nine.vercel.app/${movieData.id}`)
     setShowCopyMessage(true)
+    setTimeout(() => {
+      setShowCopyMessage(false)
+    }, 2000);
+
+
+    console.log(movieData.id)
+
+    // code after the following line will not be executed on mobile.
+
+    navigator.share(`https://random-movie-nine.vercel.app/${movieData.id}`)
+    navigator.clipboard.writeText(`https://random-movie-nine.vercel.app/${movieData.id}`)
+
+
+
   }
 
   return (
 
     <div>
 
+
       <Routes>
         <Route path='/home' element={<Home />} />
 
         <Route path={`:linkId`} element={<Movie movieData={movieData} fm={randomMovie} openLink={openLink} />} />
       </Routes>
+      <div className='wtf'>
 
-      {showCopyMessage ?
-        <div className='copy-to-clip'>
-          link to movie have been coped to clipboard: {`https://random-movie-nine.vercel.app/${movieData.id}`}
-          <button onClick={()=> setShowCopyMessage(false)}>Ok</button>
-        </div>
-        :
-        null
-      }
+        {showCopyMessage ?
+          <div className='copy-to-clip'>
+            link copied to clipboard
 
+          </div>
+          :
+          null
+        }
 
+      </div>
 
       <Controls fm={randomMovie} copyToShare={copyToShare} />
 
