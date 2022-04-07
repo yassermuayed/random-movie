@@ -22,13 +22,12 @@ export default function App() {
 
   const [movieData, setMovieData] = useState(mm)
   const [showCopyMessage, setShowCopyMessage] = useState(false)
-  
+  const [includeAdult, setIncludeAdult] = useState(false)
+
   let navigate = useNavigate()
 
 
-  useEffect(() => {
-    navigate('/home')
-  }, [])
+
 
   async function openLink(link_id) {
     console.log("shroud open movie by its id", link_id)
@@ -70,23 +69,25 @@ export default function App() {
 
     console.log(movieData.id)
 
-    // code after the following line will not be executed on mobile.
 
     const url = `https://random-movie-nine.vercel.app/${movieData.id}`;
     const title = movieData.title
-    
+
     navigator.share({
       title: title,
       text: 'Check out this movie',
       url: url,
     })
 
-    
+    // code after the following line will not be executed on mobile.
+
     navigator.clipboard.writeText(url)
 
 
 
   }
+
+
 
   return (
 
@@ -94,6 +95,7 @@ export default function App() {
 
 
       <Routes>
+        <Route path='/' element={<Home />} />
         <Route path='/home' element={<Home />} />
 
         <Route path={`:linkId`} element={<Movie movieData={movieData} fm={randomMovie} openLink={openLink} />} />

@@ -30,7 +30,7 @@ export default function Home() {
         <div className='githubb'>
           This website is open source. Contribute on <a href='https://github.com/yassermuayed/random-movie'>Github</a>.
         </div>
-      <div className='input'>
+      <div className='input' >
         <input type="checkbox" /> Include adult results.
       </div>
 
