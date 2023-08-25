@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.pending {
+  background-color: red;
+  width: 100vw;
+  height: 100vh;
+  top: 200px;
+  left: 200px;
+}
+
+/* Define the animation keyframes for the rotation */
+@keyframes rotateAnimation {
+  0% {
+    transform: rotate(0deg);
+    scale: 1.2;
+  }
+  100% {
+    transform: rotate(1000deg);
+    scale: 1;
+  }
+}
+
+/* Apply the animation on the icon element */
+.spinner {
+  /* Set the icon's initial state */
+  transform: rotate(0deg);
+  /* Add a transition to smoothly return the icon to its original orientation */
+  transition: transform 0.3s ease;
+}
+
+/* Add a class to the icon when clicked to trigger the rotation animation */
+.spinner:active {
+  animation: rotateAnimation 1s linear;
+}
